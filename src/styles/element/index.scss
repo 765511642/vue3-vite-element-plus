@@ -1,0 +1,92 @@
+@use 'sass:math';
+@use 'sass:map';
+$--colors: (
+	'primary': (
+		'base': #50b089
+	),
+	'success': (
+		'base': #21ba45
+	),
+	'warning': (
+		'base': #f2711c
+	),
+	'danger': (
+		'base': #db2828
+	),
+	'error': (
+		'base': #db2828
+	)
+);
+
+$--border-radius: (
+	'base': 3px
+);
+// --el-border-radius-base
+// 自定义主题
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+	// do not use same name, it will override.
+	$colors: $--colors,
+	$border-radius: $--border-radius,
+	$button-padding-horizontal: ('default': 50px)
+);
+
+// 如果只是按需导入，则可以忽略以下内容。如果你想导入所有样式:
+@use 'element-plus/theme-chalk/src/index.scss' as *;
+// 下拉菜单，去除默认边框
+.el-tooltip__trigger,
+.el-button {
+	outline: none !important;
+}
+.el-table__inner-wrapper {
+	.el-table__header-wrapper {
+		.el-table__header {
+			th {
+				color: #363636 !important;
+				background: #f7f7f7 !important;
+			}
+		}
+	}
+}
+// select下的taginfo
+.el-select__tags {
+	.el-tag.el-tag--info {
+		color: map-get(map-get($--colors, 'primary'), 'base');
+	}
+}
+.el-popper .el-tag--info {
+	color: map-get(map-get($--colors, 'primary'), 'base');
+}
+// TreeSelect 树形选择 尺寸
+.custom-tree-select.el-select--default {
+	min-width: 290px !important;
+}
+.custom-tree-select.el-select--small {
+	min-width: 260px !important;
+}
+// 输入框，下拉框，small下宽度
+$small-width: 160px;
+.el-form--small {
+	.el-select--small {
+		min-width: $small-width;
+	}
+	.el-input--small {
+		min-width: $small-width;
+	}
+	.el-range-editor--small {
+		min-width: calc($small-width * 2 - 50px);
+	}
+}
+
+// 输入框，下拉框，default下宽度
+$default-width: 210px;
+.el-form--default {
+	.el-select--default {
+		min-width: $default-width;
+	}
+	.el-input--default {
+		min-width: $default-width;
+	}
+	.el-range-editor--default {
+		min-width: calc($default-width * 2 - 50px);
+	}
+}
